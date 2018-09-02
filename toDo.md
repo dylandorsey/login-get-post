@@ -1,9 +1,10 @@
 ## ToDo:
 [x] create react app
 [x] configure gitignore
-[ ] login page elements
+[x] login page elements
 [x] build server
 
+[x] set up reducer
 [ ] text axios call upon click
 [ ] upon login axios call to DiscussionAPI to GET wall posts and their comments upon login
 [ ] store resultant wall posts and their comments in wall reducer

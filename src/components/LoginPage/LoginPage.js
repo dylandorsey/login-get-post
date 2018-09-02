@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { LOGIN_ACTIONS } from '../../redux/actions/loginActions';
+
+const mapReduxStateToProps = reduxState => ({
+    login: reduxState.login,
+})
 
 class LoginPage extends Component {
     constructor(props) {
@@ -16,6 +22,16 @@ class LoginPage extends Component {
         console.log('init login');
         console.log(this.state.username);
         console.log(this.state.password);
+
+        const payload = {
+            username: this.state.username,
+            password: this.state.password,
+        }
+
+        this.props.dispatch({
+            type: LOGIN_ACTIONS.LOGIN,
+            payload
+        });
     }
 
     handleInputChange = event => {
@@ -64,4 +80,4 @@ class LoginPage extends Component {
 }
 
 
-export default LoginPage;
+export default connect(mapReduxStateToProps)(LoginPage);
