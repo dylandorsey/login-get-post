@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { WALL_ACTIONS } from '../../redux/actions/wallActions';
 
 const mapReduxStateToProps = reduxState => ({
 
@@ -41,6 +42,13 @@ class WallView extends Component {
 
         console.log('init postPost')
         console.log(this.state.newWallPost);
+
+        const payload = this.state.newWallPost;
+
+        this.props.dispatch({
+            type: WALL_ACTIONS.SET_NEW_POST_TEXT,
+            payload
+        })
     }
 
     render() {
