@@ -35,6 +35,12 @@ class WallView extends Component {
         console.log('init post comment')
         console.log(this.state.newComment);
 
+        const payload = this.state.newComment;
+
+        this.props.dispatch({
+            type: WALL_ACTIONS.SET_NEW_COMMENT_TEXT,
+            payload
+        })
     }
 
     postPost = event => {
