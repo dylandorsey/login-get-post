@@ -29,7 +29,7 @@ class WallView extends Component {
     }
 
     postComment = event => {
-        event.preventdefault();
+        event.preventDefault();
 
         console.log('init post comment')
         console.log(this.state.newComment);
@@ -37,20 +37,19 @@ class WallView extends Component {
     }
 
     postPost = event => {
-        event.preventdefault();
+        event.preventDefault();
 
         console.log('init postPost')
         console.log(this.state.newWallPost);
     }
 
     render() {
-        const { classes } = this.props
         return (
             <div>
                 <h1>Wall</h1>
                 <form onSubmit={this.newPost}>
                     <div>
-                        <h1>Create a new post</h1>
+                        <h2>Create a new post</h2>
                     </div>
                     <textarea
                         type="text"
@@ -65,7 +64,7 @@ class WallView extends Component {
                 <form onSubmit={this.newComment}>
                 <div>
                 <h2>Comment</h2>
-                
+                </div>
                 <textarea
                         type="text"
                         name="newComment"
@@ -73,7 +72,6 @@ class WallView extends Component {
                         onChange={this.handleInputChange}
                     >
                     </textarea>   
-                </div>
                 <button onClick={this.postComment}>Comment</button>
                 </form>
             </div>
