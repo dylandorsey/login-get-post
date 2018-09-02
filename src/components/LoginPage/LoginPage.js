@@ -47,17 +47,19 @@ class LoginPage extends Component {
         });
     }
 
+    navigateToWallView = () =>{
+        this.props.history.push('/wall')
+    }
+
     render() {
         const { classes } = this.props
         return (
             <div>
-                <h1>Test LoginPage</h1>
+                <h1>LoginPage</h1>
                 <form onSubmit={this.login}>
                     <div>
                         <h1>Log in here</h1>
                     </div>
-                    <label htmlFor="username">
-                    </label>
                     <input
                         type="text"
                         name="username"
@@ -74,7 +76,13 @@ class LoginPage extends Component {
                     </input>
                 </form>
                 <button onClick={this.login}>login</button>
+                {this.props.login.loginStatus === true ?
+                    <button onClick={this.navigateToWallView}>View your wall</button>
+                    :
+                    <div></div>
+                }
             </div>
+
         );
     }
 }

@@ -7,6 +7,10 @@ function* loginUser(action) {
             type: LOGIN_ACTIONS.SET_USERNAME_AND_PASSWORD,
             payload: action.payload,
         });
+        yield put({
+            type: LOGIN_ACTIONS.LOGIN_SUCCESSFUL,
+            payload: true,
+        })
     } catch (error) {
         yield put({
             type: LOGIN_ACTIONS.LOGIN_FAILED,

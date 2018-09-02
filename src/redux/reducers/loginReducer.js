@@ -21,7 +21,17 @@ const loginMessage = (state = '', action) => {
     }
 }
 
+const loginStatus = (state = false, action) => {
+    switch (action.type) {
+        case LOGIN_ACTIONS.LOGIN_SUCCESSFUL:
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     loginData,
     loginMessage,
+    loginStatus,
 })

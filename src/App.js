@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import LoginPage from './components/LoginPage/LoginPage';
+import WallView from './components/WallView/WallView';
 
 const App = () => (
   <div>
@@ -16,6 +17,10 @@ const App = () => (
         <Route
           path="/home"
           component={LoginPage}
+          />
+          <Route
+          path="/wall"
+          component={WallView}
           />
         {/* Otherwise no path*/}
         <Route
