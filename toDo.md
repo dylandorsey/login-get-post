@@ -2,7 +2,7 @@
 [x] create react app
 [x] configure gitignore
 [ ] login page elements
-[ ] build server
+[x] build server
 
 [ ] text axios call upon click
 [ ] upon login axios call to DiscussionAPI to GET wall posts and their comments upon login
