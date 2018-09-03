@@ -1,7 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { LOGIN_ACTIONS } from '../actions/loginActions';
 import { WALL_ACTIONS } from '../actions/wallActions';
-import { callGetAuthenticationData } from '../requests/loginRequests';
+import { 
+    callGetAuthenticationData,
+    callGetWallData,
+ } from '../requests/loginRequests';
 
 function* loginUser(action) {
     try {
@@ -16,7 +19,15 @@ function* loginUser(action) {
         const authenticationData = yield callGetAuthenticationData();
         yield put({
             type: LOGIN_ACTIONS.SET_AUTHENTICATION_DATA,
-            authenticationData
+            payload: authenticationData
+        })
+        const accessToken = authenticationData.access_token
+        const wallData = yield callGetWallData(accessToken);
+        yield console.log('wallData call returned with:')
+        yield console.log(wallData);
+        yield put({
+            type: WALL_ACTIONS.SET_WALL_DATA,
+            payload: wallData
         })
     } catch (error) {
         yield put({

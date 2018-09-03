@@ -31,6 +31,7 @@ const errorMessage = (state = '', action) => {
 }
 
 export default combineReducers({
-    textData,
     errorMessage,
+    textData,
+    wallData,
 })
