@@ -9,12 +9,12 @@
 [ ] upon login axios call to DiscussionAPI to GET wall posts and their comments upon login
 [ ] store resultant wall posts and their comments in wall reducer
 
-[ ] new post text element
-[ ] post-to-wall button element
+[x] new post text element
+[x] post-to-wall button element
 [ ] upon post, axios call to POST to DiscussionAPI
 [ ] after successful POST to DiscussionAPI, GET wall posts and their comments
-[ ] comment text element
-[ ] add-comment-to-post button element
+[x] comment text element
+[x] add-comment-to-post button element
 [ ] upon comment, axios call to Post to DiscussionAPI
 [ ] after successful POST to DiscussionAPI, GET wall posts and their comments
 

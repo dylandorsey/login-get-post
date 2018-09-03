@@ -2,8 +2,14 @@
   "name": "login-post-comment",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
+    "axios": "^0.18.0",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^6.0.0",
+    "eslint-config-airbnb": "^17.1.0",
     "express": "^4.16.3",
+    "qs": "^6.5.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
@@ -21,4 +27,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
+  
 }

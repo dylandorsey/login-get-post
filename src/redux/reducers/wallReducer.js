@@ -12,6 +12,15 @@ const textData = (state = '', action) => {
     }
 }
 
+const wallData = (state = {}, action) => {
+    switch (action.type) {
+        case WALL_ACTIONS.SET_WALL_DATA:
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 const errorMessage = (state = '', action) => {
     switch (action.type) {
         case WALL_ACTIONS.SET_ERROR_MESSAGE:

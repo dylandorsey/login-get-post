@@ -16,6 +16,10 @@ class WallView extends Component {
         }
     }
 
+    componentDidMount = () => {
+        console.log('component mounted');
+    }
+
     handleInputChange = event => {
         // get the event target
         const { target } = event;
