@@ -1,5 +1,7 @@
 # LOGIN-POST-COMMENT
 
+This is a simple app for logging in with Oauth2 and interacting with a wall by posting and commenting on posts.
+
 ## Prerequisites
 
 Before you get started, make sure you have the following software installed on your computer:
@@ -32,7 +34,6 @@ Then make sure `Launch Program` is selected from the dropdown, then click the gr
 
 Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
 
-* Start postgres if not running already by using `brew services start postgresql`
 * Run `npm start`
 * Navigate to `localhost:5000`
 
