@@ -1,20 +1,39 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { WALL_ACTIONS } from '../actions/wallActions';
-import { callPOSTWallPost } from '../requests/wallRequests';
+import { 
+    callPOSTWallPost,
+    callGetWallPosts,
+ } from '../requests/wallRequests';
+// import { extractPostIDs } from '../../components/functions/functions';
 
 function* postNewPost(action) {
     try {
+        let arrayOfPostIDs = action.payload.arrayOfExistingPostIDs;
         const postData = action.payload;
         yield console.log(postData);
         yield put({ 
             type: WALL_ACTIONS.SET_NEW_POST_TEXT,
             payload: postData,
         });
-        const newPostID = yield callPOSTWallPost(postData)
-        yield console.log(newPostID);
+        const newPost = yield callPOSTWallPost(postData)
+        yield console.log(newPost);
+        yield console.log(newPost.id);
+        yield console.log(`new post Id is ${newPost.id}`);
+
         yield put({
             type: WALL_ACTIONS.SET_NEW_POST_ID,
-            payload: newPostID,
+            payload: newPost.id,
+        })
+        const updatedArrayOfPostIDs = [...arrayOfPostIDs, newPost.id]
+        yield console.log(updatedArrayOfPostIDs);
+        const arrayOfPosts = yield callGetWallPosts(postData.accessToken, updatedArrayOfPostIDs);
+        yield put({
+            type: WALL_ACTIONS.SET_ARRAY_OF_EXISTING_POST_IDS,
+            payload: updatedArrayOfPostIDs
+        })
+        yield put({
+            type: WALL_ACTIONS.SET_ARRAY_OF_POSTS,
+            payload: arrayOfPosts
         })
     } catch (error) {
         yield put({
@@ -22,6 +41,10 @@ function* postNewPost(action) {
             message: error.message || error,
         });
     }
+}
+
+function* getWallPostsByID() {
+
 }
 
 function* postNewComment(action) {

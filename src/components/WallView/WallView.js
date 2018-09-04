@@ -4,6 +4,7 @@ import { WALL_ACTIONS } from '../../redux/actions/wallActions';
 
 const mapReduxStateToProps = reduxState => ({
     login: reduxState.login,
+    wall: reduxState.wall,
 })
 
 class WallView extends Component {
@@ -57,6 +58,7 @@ class WallView extends Component {
         const payload = {
             postBody: this.state.newWallPost,
             accessToken: accessToken,
+            arrayOfExistingPostIDs: this.props.wall.existingPostIDs,
         }
         this.props.dispatch({
             type: WALL_ACTIONS.POST_NEW_POST,
