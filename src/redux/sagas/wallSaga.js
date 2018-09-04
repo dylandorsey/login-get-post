@@ -50,7 +50,8 @@ function* postNewComment(action) {
         // POST REQUEST TO WALL_COMMENT API
         const commentData = action.payload;
         const newComment = yield callPOSTWallComment(commentData)
-
+        yield console.log('new comment posted with id:')
+        yield console.log(newComment.id);
         // PASS ARRAY OF EXISTING USER COMMENT IDS TO A VARIABLE
         let arrayOfCommentIDs = action.payload.arrayOfExistingCommentIDs;
         // UPDATE ARRAY OF EXISTING USER COMMENT IDS TO INCLUDE THE NEW COMMENT ID
@@ -63,13 +64,20 @@ function* postNewComment(action) {
         })
 
         // GET REQUEST FROM WALL_COMMENTS API FOR ALL USER COMMENT OBJECTS
-        const arrayOfComments = yield callGETWallComments(commentData.accessToken, updatedArrayOfCommentIDs);
+
+        // AS OF THIS WRITING, THIS REQUEST YIELDS A STATUS 500 ERROR.
+        // "TOO FEW ARGUMENTS TO FUNCTION..."
+
+        // const arrayOfComments = yield callGETWallComments(commentData.accessToken, updatedArrayOfCommentIDs);
+        
+        
         // PASS API RESPONSE TO REDUX STATE
         yield put({
             type: WALL_ACTIONS.SET_ARRAY_OF_COMMENTS,
             payload: arrayOfComments
         })
     } catch (error) {
+        yield console.log(error);
         yield put({
             type: WALL_ACTIONS.SET_ERROR_MESSAGE,
             message: error.message || error,

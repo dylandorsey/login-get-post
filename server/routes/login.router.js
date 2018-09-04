@@ -19,7 +19,6 @@ const loginUser = (loginObject) => {
             email: loginObject.email,
             password: loginObject.password,
         }
-        console.log(data);
         axios.post('https://devapi.careerprepped.com/oauth', qs.stringify(data)
         ).then(response => {
             response = response.data;
