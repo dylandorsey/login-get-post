@@ -13,7 +13,6 @@ const loginUser = (loginObject) => {
         //     password: process.env.PASSWORD,
         // }
         // END DEV TESTING CONVENIENCE
-        console.log(loginObject);
         const data = {
             client_id: loginObject.username,
             grant_type: process.env.GRANT_TYPE,

@@ -21,9 +21,6 @@ class LoginPage extends Component {
         event.preventDefault();
 
         console.log('init login');
-        console.log(this.state.username);
-        console.log(this.state.password);
-        console.log(this.state.email);
 
         const payload = {
             username: this.state.username,
