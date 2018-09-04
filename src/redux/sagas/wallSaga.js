@@ -1,8 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { WALL_ACTIONS } from '../actions/wallActions';
 import { 
+    callPOSTWallComment,
     callPOSTWallPost,
-    callGetWallPosts,
+    callGETWallComments,
+    callGETWallPosts,
  } from '../requests/wallRequests';
 // import { extractPostIDs } from '../../components/functions/functions';
 
@@ -26,7 +28,7 @@ function* postNewPost(action) {
         })
         const updatedArrayOfPostIDs = [...arrayOfPostIDs, newPost.id]
         yield console.log(updatedArrayOfPostIDs);
-        const arrayOfPosts = yield callGetWallPosts(postData.accessToken, updatedArrayOfPostIDs);
+        const arrayOfPosts = yield callGETWallPosts(postData.accessToken, updatedArrayOfPostIDs);
         yield put({
             type: WALL_ACTIONS.SET_ARRAY_OF_EXISTING_POST_IDS,
             payload: updatedArrayOfPostIDs
@@ -49,15 +51,33 @@ function* getWallPostsByID() {
 
 function* postNewComment(action) {
     try {
-        yield put({
+        let arrayOfCommentIDs = action.payload.arrayOfExistingCommentIDs;
+        const commentData = action.payload;
+        yield console.log(commentData);
+        yield put({ 
             type: WALL_ACTIONS.SET_NEW_COMMENT_TEXT,
-            payload: action.payload,
+            payload: commentData,
+        });
+        const newComment = yield callPOSTWallComment(commentData)
+        yield console.log(newComment);
+        yield console.log(newComment.id);
+        yield console.log(`new comment Id is ${newComment.id}`);
+        const updatedArrayOfCommentIDs = [...arrayOfCommentIDs, newComment.id]
+        yield console.log(updatedArrayOfCommentIDs);
+        yield put({
+            type: WALL_ACTIONS.SET_ARRAY_OF_EXISTING_COMMENT_IDS,
+            payload: updatedArrayOfCommentIDs
+        })
+        const arrayOfComments = yield callGETWallComments(commentData.accessToken, updatedArrayOfCommentIDs);
+        yield put({
+            type: WALL_ACTIONS.SET_ARRAY_OF_COMMENTS,
+            payload: arrayOfComments
         })
     } catch (error) {
         yield put({
             type: WALL_ACTIONS.SET_ERROR_MESSAGE,
-            message: error.message,
-        })
+            message: error.message || error,
+        });
     }
 }
 

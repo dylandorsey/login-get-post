@@ -15,6 +15,7 @@ class WallView extends Component {
         this.state = {
             newWallPost: '',
             newComment: '',
+            postID: 'testTextB',
         }
     }
 
@@ -35,18 +36,30 @@ class WallView extends Component {
         });
     }
 
-    postComment = event => {
+    postComment = (event) => {
         event.preventDefault();
-
         console.log('init post comment')
         console.log(this.state.newComment);
+        console.log('this is the post ID:');
+        console.log(this.props.wall.commentPostID);
 
-        const payload = this.state.newComment;
+        const accessToken = this.props.login.loginData.access_token;
+        const payload = {
+            commentBody: this.state.newComment,
+            accessToken: accessToken,
+            arrayOfExistingCommentIDs: this.props.wall.existingCommentIDs,
+            postID: this.props.wall.commentPostID,
+        }
 
         this.props.dispatch({
-            type: WALL_ACTIONS.SET_NEW_COMMENT_TEXT,
+            type: WALL_ACTIONS.POST_NEW_COMMENT,
             payload
         })
+
+        // this.props.dispatch({
+        //     type: WALL_ACTIONS.SET_NEW_COMMENT_TEXT,
+        //     payload
+        // })
     }
 
     postPost = event => {
@@ -70,7 +83,7 @@ class WallView extends Component {
     render() {
         return (
             <div>
-                <h1>Wall</h1>
+                <h1>Your Wall</h1>
                 <form onSubmit={this.newPost}>
                     <div>
                         <h3>Create a new post</h3>
@@ -85,27 +98,15 @@ class WallView extends Component {
                     <button onClick={this.postPost}>Post</button>
                 </form>
 
-                <form onSubmit={this.newComment}>
-                    <div>
-                        <h3>Comment</h3>
-                    </div>
-                    <textarea
-                        type="text"
-                        name="newComment"
-                        placeholder="Comment here!"
-                        onChange={this.handleInputChange}
-                    >
-                    </textarea>
-                    <button onClick={this.postComment}>Comment</button>
-                </form>
-
                 <div>
                     <h2>Your Posts</h2>
                     {this.props.wall.arrayOfPosts.length > 0 ?
                         this.props.wall.arrayOfPosts.map(item =>
-                            <WallPost
+                            <WallPost   
                                 key={item.id}
                                 item={item}
+                                postComment={this.postComment}
+                                handleInputChange={this.handleInputChange}
                             />
                         )
                         :
