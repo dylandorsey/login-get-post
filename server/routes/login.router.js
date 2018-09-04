@@ -5,11 +5,20 @@ const qs = require('qs');
 
 const loginUser = (loginObject) => {
     return new Promise((resolve, reject) => {
+        // FOR DEV TESTING CONVENIENCE: CODE PARAMS IN .ENV
+        // const data = {
+        //     client_id: process.env.CLIENT_ID,
+        //     grant_type: process.env.GRANT_TYPE,
+        //     email: process.env.EMAIL,
+        //     password: process.env.PASSWORD,
+        // }
+        // END DEV TESTING CONVENIENCE
+        console.log(loginObject);
         const data = {
-            client_id: process.env.CLIENT_ID,
+            client_id: loginObject.username,
             grant_type: process.env.GRANT_TYPE,
-            email: process.env.EMAIL,
-            password: process.env.PASSWORD,
+            email: loginObject.email,
+            password: loginObject.password,
         }
         console.log(data);
         axios.post('https://devapi.careerprepped.com/oauth', qs.stringify(data)
@@ -24,10 +33,12 @@ const loginUser = (loginObject) => {
     })
 }
 
-router.get('/', (req,res) => {
+router.get('/', (req, res) => {
     (async () => {
         try {
-            const wallData = await loginUser(req.body);
+            console.log('init get login user request with req.query=')
+            console.log(req.query);
+            const wallData = await loginUser(req.query);
             res.send(wallData);
         } catch (error) {
             throw error;

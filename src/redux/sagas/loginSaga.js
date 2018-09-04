@@ -1,25 +1,26 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { LOGIN_ACTIONS } from '../actions/loginActions';
 import { WALL_ACTIONS } from '../actions/wallActions';
-import { 
+import {
     callGetAuthenticationData,
     callGetWallData,
- } from '../requests/loginRequests';
+} from '../requests/loginRequests';
 
 function* loginUser(action) {
     try {
-        yield put({
-            type: LOGIN_ACTIONS.SET_USERNAME_AND_PASSWORD,
-            payload: action.payload,
-        });
+        // yield put({
+        //     type: LOGIN_ACTIONS.SET_USERNAME_AND_PASSWORD,
+        //     payload: action.payload,
+        // });
+        yield console.log(action.payload);
+        const authenticationData = yield callGetAuthenticationData(action.payload);
+        // yield put({
+        //     type: LOGIN_ACTIONS.CLEAR_LOGIN_DATA
+        // })
         yield put({
             type: LOGIN_ACTIONS.LOGIN_SUCCESSFUL,
             payload: true,
         })
-        yield put({
-            type: LOGIN_ACTIONS.CLEAR_LOGIN_DATA
-        })
-        const authenticationData = yield callGetAuthenticationData();
         yield put({
             type: LOGIN_ACTIONS.SET_AUTHENTICATION_DATA,
             payload: authenticationData
@@ -35,7 +36,7 @@ function* loginUser(action) {
     } catch (error) {
         yield put({
             type: LOGIN_ACTIONS.LOGIN_FAILED,
-            message: error.message,
+            message: error.message || "the log in failed",
         });
     }
 }

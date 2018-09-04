@@ -13,6 +13,7 @@ class LoginPage extends Component {
         this.state = {
             username: '',
             password: '',
+            email: '',
         }
     }
 
@@ -22,10 +23,12 @@ class LoginPage extends Component {
         console.log('init login');
         console.log(this.state.username);
         console.log(this.state.password);
+        console.log(this.state.email);
 
         const payload = {
             username: this.state.username,
             password: this.state.password,
+            email: this.state.email,
         }
 
         this.props.dispatch({
@@ -58,6 +61,13 @@ class LoginPage extends Component {
                 <form onSubmit={this.login}>
                     <div>
                         <h1>Log in here</h1>
+                        {this.props.login.loginMessage != '' ? 
+                        <div>
+                            <h3>{this.props.login.loginMessage}</h3>
+                        </div>
+                        :
+                        <div></div>
+                        }
                     </div>
                     <input
                         type="text"
@@ -73,10 +83,19 @@ class LoginPage extends Component {
                         onChange={this.handleInputChange}
                     >
                     </input>
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="email"
+                        onChange={this.handleInputChange}
+                    >
+                    </input>
                 </form>
                 <button onClick={this.login}>login</button>
                 {this.props.login.loginStatus === true ?
+                    <div>
                     <button onClick={this.navigateToWallView}>View your wall</button>
+                    </div>
                     :
                     <div></div>
                 }

@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-export function callGetAuthenticationData () {
-    return axios.get(`/api/login`)
+export function callGetAuthenticationData (loginObject) {
+    const params = loginObject
+    console.log(params);
+    console.log('init axios GET for login');
+    return axios.get(`/api/login`, {params})
     .then(response => response.data)
     .catch((error) => {
         throw error.response || error;
