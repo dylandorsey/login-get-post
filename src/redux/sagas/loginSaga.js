@@ -16,6 +16,9 @@ function* loginUser(action) {
             type: LOGIN_ACTIONS.LOGIN_SUCCESSFUL,
             payload: true,
         })
+        yield put({
+            type: LOGIN_ACTIONS.CLEAR_LOGIN_DATA
+        })
         const authenticationData = yield callGetAuthenticationData();
         yield put({
             type: LOGIN_ACTIONS.SET_AUTHENTICATION_DATA,

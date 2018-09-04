@@ -5,9 +5,10 @@
 [x] build server
 
 [x] set up reducer
-[ ] text axios call upon click
-[ ] upon login axios call to DiscussionAPI to GET wall posts and their comments upon login
-[ ] store resultant wall posts and their comments in wall reducer
+[x] text axios call upon click
+[x] upon login axios call to DiscussionAPI to GET wall posts and their comments upon login
+[x] store resultant wall posts and their comments in wall reducer
+[ ] display wall posts on the DOM
 
 [x] new post text element
 [x] post-to-wall button element

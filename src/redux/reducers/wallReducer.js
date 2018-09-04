@@ -7,6 +7,8 @@ const textData = (state = '', action) => {
             return action.payload;
         case WALL_ACTIONS.SET_NEW_POST_TEXT:
             return action.payload;
+        case WALL_ACTIONS.SET_NEW_POST_ID:
+            return action.payload;
         default:
             return state;
     }

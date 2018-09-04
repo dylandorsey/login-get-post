@@ -7,6 +7,8 @@ const loginData = (state = {}, action) => {
             return action.payload;
         case LOGIN_ACTIONS.CLEAR_LOGIN_DATA:
             return '';
+        case LOGIN_ACTIONS.SET_AUTHENTICATION_DATA:
+            return action.payload;
         default:
             return state;
     }

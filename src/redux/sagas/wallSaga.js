@@ -1,16 +1,25 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { WALL_ACTIONS } from '../actions/wallActions';
+import { callPOSTWallPost } from '../requests/wallRequests';
 
 function* postNewPost(action) {
     try {
-        yield put({
+        const postData = action.payload;
+        yield console.log(postData);
+        yield put({ 
             type: WALL_ACTIONS.SET_NEW_POST_TEXT,
-            payload: action.payload,
+            payload: postData,
         });
+        const newPostID = yield callPOSTWallPost(postData)
+        yield console.log(newPostID);
+        yield put({
+            type: WALL_ACTIONS.SET_NEW_POST_ID,
+            payload: newPostID,
+        })
     } catch (error) {
         yield put({
             type: WALL_ACTIONS.SET_ERROR_MESSAGE,
-            message: error.message,
+            message: error.message || error,
         });
     }
 }

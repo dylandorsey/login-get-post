@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { WALL_ACTIONS } from '../../redux/actions/wallActions';
 
 const mapReduxStateToProps = reduxState => ({
-
+    login: reduxState.login,
 })
 
 class WallView extends Component {
@@ -53,10 +53,13 @@ class WallView extends Component {
         console.log('init postPost')
         console.log(this.state.newWallPost);
 
-        const payload = this.state.newWallPost;
-
+        const accessToken = this.props.login.loginData.access_token;
+        const payload = {
+            postBody: this.state.newWallPost,
+            accessToken: accessToken,
+        }
         this.props.dispatch({
-            type: WALL_ACTIONS.SET_NEW_POST_TEXT,
+            type: WALL_ACTIONS.POST_NEW_POST,
             payload
         })
     }
