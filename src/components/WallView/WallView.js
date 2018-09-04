@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { WALL_ACTIONS } from '../../redux/actions/wallActions';
+import WallPost from '../WallPost/WallPost';
 
 const mapReduxStateToProps = reduxState => ({
     login: reduxState.login,
@@ -72,7 +73,7 @@ class WallView extends Component {
                 <h1>Wall</h1>
                 <form onSubmit={this.newPost}>
                     <div>
-                        <h2>Create a new post</h2>
+                        <h3>Create a new post</h3>
                     </div>
                     <textarea
                         type="text"
@@ -85,18 +86,34 @@ class WallView extends Component {
                 </form>
 
                 <form onSubmit={this.newComment}>
-                <div>
-                <h2>Comment</h2>
-                </div>
-                <textarea
+                    <div>
+                        <h3>Comment</h3>
+                    </div>
+                    <textarea
                         type="text"
                         name="newComment"
                         placeholder="Comment here!"
                         onChange={this.handleInputChange}
                     >
-                    </textarea>   
-                <button onClick={this.postComment}>Comment</button>
+                    </textarea>
+                    <button onClick={this.postComment}>Comment</button>
                 </form>
+
+                <div>
+                    <h2>Your Posts</h2>
+                    {this.props.wall.arrayOfPosts.length > 0 ?
+                        this.props.wall.arrayOfPosts.map(item =>
+                            <WallPost
+                                key={item.id}
+                                item={item}
+                            />
+                        )
+                        :
+                        <p>Nothing here!</p>
+                    }
+
+                </div>
+
             </div>
         );
     }
