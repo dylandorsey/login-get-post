@@ -8,15 +8,8 @@ import {
 
 function* loginUser(action) {
     try {
-        // yield put({
-        //     type: LOGIN_ACTIONS.SET_USERNAME_AND_PASSWORD,
-        //     payload: action.payload,
-        // });
-        yield console.log(action.payload);
+        // GET ACCESS TOKEN FROM OAUTH2 ENDPOINT
         const authenticationData = yield callGetAuthenticationData(action.payload);
-        // yield put({
-        //     type: LOGIN_ACTIONS.CLEAR_LOGIN_DATA
-        // })
         yield put({
             type: LOGIN_ACTIONS.LOGIN_SUCCESSFUL,
             payload: true,
@@ -26,9 +19,11 @@ function* loginUser(action) {
             payload: authenticationData
         })
         const accessToken = authenticationData.access_token
+        // GET WALL DATA FROM WALL ENDPOINT
         const wallData = yield callGetWallData(accessToken);
         yield console.log('wallData call returned with:')
         yield console.log(wallData);
+        // SET WALL DATA TO CLIENT SESSION STORAGE
         yield put({
             type: WALL_ACTIONS.SET_WALL_DATA,
             payload: wallData

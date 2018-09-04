@@ -6,33 +6,33 @@ import {
     callGETWallComments,
     callGETWallPosts,
  } from '../requests/wallRequests';
-// import { extractPostIDs } from '../../components/functions/functions';
 
 function* postNewPost(action) {
     try {
-        let arrayOfPostIDs = action.payload.arrayOfExistingPostIDs;
+        // POST REQUEST TO WALL API
         const postData = action.payload;
-        yield console.log(postData);
-        yield put({ 
-            type: WALL_ACTIONS.SET_NEW_POST_TEXT,
-            payload: postData,
-        });
         const newPost = yield callPOSTWallPost(postData)
-        yield console.log(newPost);
-        yield console.log(newPost.id);
-        yield console.log(`new post Id is ${newPost.id}`);
 
+        // SET NEW POST ID TO CLIENT SESSION STORAGE
         yield put({
             type: WALL_ACTIONS.SET_NEW_POST_ID,
             payload: newPost.id,
         })
+
+        // PASS ARRAY OF EXISTING USER POST IDS TO A VARIABLE
+        let arrayOfPostIDs = action.payload.arrayOfExistingPostIDs;
+        // UPDATE ARRAY OF EXISTING USER POST IDS TO INCLUDE THE NEW POST ID
         const updatedArrayOfPostIDs = [...arrayOfPostIDs, newPost.id]
-        yield console.log(updatedArrayOfPostIDs);
-        const arrayOfPosts = yield callGETWallPosts(postData.accessToken, updatedArrayOfPostIDs);
+
+        // PASS UPDATED ARRAY OF POST IDS TO REDUX STATE
         yield put({
             type: WALL_ACTIONS.SET_ARRAY_OF_EXISTING_POST_IDS,
             payload: updatedArrayOfPostIDs
         })
+
+        // GET REQUEST FROM WALL API FOR ALL USER POST OBJECTS
+        const arrayOfPosts = yield callGETWallPosts(postData.accessToken, updatedArrayOfPostIDs);
+        // PASS API RESPONSE TO REDUX STATE
         yield put({
             type: WALL_ACTIONS.SET_ARRAY_OF_POSTS,
             payload: arrayOfPosts
@@ -45,30 +45,26 @@ function* postNewPost(action) {
     }
 }
 
-function* getWallPostsByID() {
-
-}
-
 function* postNewComment(action) {
     try {
-        let arrayOfCommentIDs = action.payload.arrayOfExistingCommentIDs;
+        // POST REQUEST TO WALL_COMMENT API
         const commentData = action.payload;
-        yield console.log(commentData);
-        yield put({ 
-            type: WALL_ACTIONS.SET_NEW_COMMENT_TEXT,
-            payload: commentData,
-        });
         const newComment = yield callPOSTWallComment(commentData)
-        yield console.log(newComment);
-        yield console.log(newComment.id);
-        yield console.log(`new comment Id is ${newComment.id}`);
+
+        // PASS ARRAY OF EXISTING USER COMMENT IDS TO A VARIABLE
+        let arrayOfCommentIDs = action.payload.arrayOfExistingCommentIDs;
+        // UPDATE ARRAY OF EXISTING USER COMMENT IDS TO INCLUDE THE NEW COMMENT ID
         const updatedArrayOfCommentIDs = [...arrayOfCommentIDs, newComment.id]
-        yield console.log(updatedArrayOfCommentIDs);
+
+        // THE UPDATED ARRAY OF COMMENT IDS TO REDUX STATE
         yield put({
             type: WALL_ACTIONS.SET_ARRAY_OF_EXISTING_COMMENT_IDS,
             payload: updatedArrayOfCommentIDs
         })
+
+        // GET REQUEST FROM WALL_COMMENTS API FOR ALL USER COMMENT OBJECTS
         const arrayOfComments = yield callGETWallComments(commentData.accessToken, updatedArrayOfCommentIDs);
+        // PASS API RESPONSE TO REDUX STATE
         yield put({
             type: WALL_ACTIONS.SET_ARRAY_OF_COMMENTS,
             payload: arrayOfComments
